@@ -3,7 +3,7 @@ import numpy as np
 import torch
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-INPUT_AUDIO_FILE = "input.mp3"
+INPUT_AUDIO_FILE = "./records/2.wav"
 LANGUAGE = "en"
 
 
@@ -55,6 +55,6 @@ class SpeechRecognitionSystem:
 
 speechRecSys = SpeechRecognitionSystem(whisper.load_model("base", device=DEVICE))
 speechRecSys.print_description()
-testResult = speechRecSys.run_test()
+testResult = speechRecSys.run()
 print(testResult)
 
