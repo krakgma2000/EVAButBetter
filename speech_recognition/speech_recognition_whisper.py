@@ -5,13 +5,15 @@ import torch
 import os
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-INPUT_AUDIO_FILE = os.path.join(os.path.dirname(os.getcwd()),os.path.join("data", "test.mp3"))
+INPUT_AUDIO_FILE = os.path.join(os.path.dirname(os.getcwd()), os.path.join("data", "test.mp3"))
 LANGUAGE = "en"
 
 model_whisper = whisper.load_model("base", device=DEVICE)
 options_whisper = whisper.DecodingOptions(without_timestamps=True)
+
+
 class SpeechRecognitionWhisper(SpeechRecognitionSystem):
-    def __init__(self, model = model_whisper, options = options_whisper):
+    def __init__(self, model=model_whisper, options=options_whisper):
         super().__init__(model)
         self.options = options
 
@@ -58,5 +60,5 @@ class SpeechRecognitionWhisper(SpeechRecognitionSystem):
 
 speechRecSys = SpeechRecognitionWhisper(model_whisper)
 speechRecSys.print_description()
-testResult = speechRecSys.run_test(INPUT_AUDIO_FILE )
+testResult = speechRecSys.run_test(INPUT_AUDIO_FILE)
 print(testResult)
