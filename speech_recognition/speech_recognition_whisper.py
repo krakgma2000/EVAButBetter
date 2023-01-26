@@ -2,6 +2,7 @@ from speech_recognition_wrapper import SpeechRecognitionSystem
 import pywhisper as whisper
 import numpy as np
 import torch
+import os
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 INPUT_AUDIO_FILE = os.path.join(os.path.dirname(os.getcwd()),os.path.join("data", "test.mp3"))
