@@ -16,7 +16,7 @@ S_WIDTH = 2
 
 TIMEOUT_LENGTH = 2
 
-RECORD_DIR = "./records"
+RECORD_DIR = "./data"
 
 
 class Recorder:
