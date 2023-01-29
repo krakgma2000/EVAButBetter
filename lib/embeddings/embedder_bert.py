@@ -8,8 +8,7 @@ model = SentenceTransformer(MODEL_NAME)
 
 class EmbedderBERT(Embedder):
     def __init__(self, model_emb=model):
-        super().__init__()
-        self.model_emb = model_emb
+        super().__init__(model_emb)
 
     def encode(self, text):
         result = []
