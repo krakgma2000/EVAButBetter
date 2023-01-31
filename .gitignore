@@ -1,4 +1,4 @@
-.rasa
-models
-__pycache_
+/.rasa
+/models
+/__pycache_
 *.wav
