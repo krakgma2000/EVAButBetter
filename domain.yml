@@ -10,24 +10,17 @@ intents:
   - bot_challenge
   - say_hello
   - room_info
+
 entities:
-  - professors
+  - professor
 slots:
-  location:
+  professors_name:
     type: text
-    influence_conversation: true
+    influence_conversation: false
     mappings:
       - type: from entity
-        entity: place
-# entities:
-#   - place
-# slots:
-#   location:
-#     type: text
-#     influence_conversation: true
-#     mappings:
-#       - type: from entity
-#         entity: place
+        entity: professor
+        intent: room_info
 
 responses:
   utter_greet:

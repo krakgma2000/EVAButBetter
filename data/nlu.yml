@@ -88,4 +88,4 @@ nlu:
     - hello, world.
 - intent: room_info
   examples: |
-    - where is professor [](professors)
+    - where is professor [](professor)
