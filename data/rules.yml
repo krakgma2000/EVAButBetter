@@ -16,3 +16,8 @@ rules:
   steps:
     - intent: say_hello
     - action: action_hello_world
+
+- rule: consult professor position info
+  steps:
+    - intent: room_info
+    - action: action_room_info

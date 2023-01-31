@@ -9,7 +9,16 @@ intents:
   - mood_unhappy
   - bot_challenge
   - say_hello
-
+  - room_info
+entities:
+  - professors
+slots:
+  location:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from entity
+        entity: place
 # entities:
 #   - place
 # slots:
@@ -49,3 +58,4 @@ session_config:
 
 actions:
   - action_hello_world
+  - action_room_info

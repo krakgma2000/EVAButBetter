@@ -32,3 +32,19 @@ class ActionHelloWorld(Action):
         wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
         return []
+
+class ActionHelloWorld(Action):
+
+    def name(self) -> Text:
+        return "action_room_info"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        professor_name = tracker.get_slot("professors")
+        dispatcher.utter_message(text=professor_name)
+
+        # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
+        # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
+        return []

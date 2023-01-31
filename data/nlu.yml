@@ -86,3 +86,6 @@ nlu:
 - intent: say_hello
   examples: |
     - hello, world.
+- intent: room_info
+  examples: |
+    - where is professor [](professors)
