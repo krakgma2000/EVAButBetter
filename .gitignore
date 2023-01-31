@@ -1,0 +1,4 @@
+.rasa
+models
+__pycache_
+*.wav
