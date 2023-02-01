@@ -9,8 +9,6 @@ from nltk.tag import pos_tag
 from nltk import WordNetLemmatizer, ne_chunk
 from nltk.chunk import tree2conlltags
 
-sentence = "Mark and John are working at Google."
-
 
 class ExtractorNLTK(Extractor):
     def __init__(self):
