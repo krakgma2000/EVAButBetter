@@ -11,7 +11,11 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+import pandas as pd;
+import os
 
+df = pd.read_csv("./data/listado.csv")
+df.set_index(df["NOMBRE"].str.lower(),inplace=True)
 # from TTS.api import TTS
 
 # model_name = TTS.list_models()[0]
@@ -42,8 +46,9 @@ class ActionDepartInfo(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        professor_name = tracker.get_slot("PERSON")
-        dispatcher.utter_message(text=professor_name)
+        professor_name = tracker.get_slot("PERSON").lower()
+        msg = "professor " + professor_name  + " is in " + df.loc[professor_name, "GRUPO"] + " and " + professor_name + "'s office room number is " + df.loc[professor_name, "DESPACHO"]
+        dispatcher.utter_message(text=msg)
         print(tracker.slots)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")

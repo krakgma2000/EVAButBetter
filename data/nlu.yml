@@ -98,6 +98,12 @@ nlu:
     - I'm looking for Professor [John](PERSON), have you seen him?
     - Professor [King](PERSON), have you seen him?
     - I heard Professor [Juan](PERSON) is here, do you know where?
+    - Have you come across Professor [Green](PERSON)?
+    - Have you seen Professor [Hall](PERSON)?
+    - Can you tell me if Professor [Wood](PERSON) is around?
+    - I need to speak with Professor [Turner](PERSON), have you seen him?
+    - Where might Professor [Phillips](PERSON) be?
+    - Is Professor [Roberts](PERSON) in the building?
 # - intent: depart_info
 #   examples: |
 #     - where is professor [PINDADO TOST, ZAIRA](PERSON)
