@@ -21,3 +21,4 @@ rules:
   steps:
     - intent: depart_info
     - action: action_depart_info
+    - action: action_slot_reset

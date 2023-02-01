@@ -45,38 +45,6 @@ nlu:
     - don't like that
     - no way
     - not really
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -88,22 +56,22 @@ nlu:
     - hello, world.
 - intent: depart_info
   examples: |
-    - where is professor [PINDADO TOST, ZAIRA](PERSON)
-    - Has anyone seen Professor [John](PERSON)
-    - Where could Professor [John](PERSON) be?
-    - Do you know the whereabouts of Professor [John](PERSON)?
-    - I can't seem to find Professor [Smith](PERSON), have you seen him?
-    - Is Professor [Green](PERSON) around?
-    - Can someone tell me where Professor [John](PERSON) is?
-    - I'm looking for Professor [John](PERSON), have you seen him?
-    - Professor [King](PERSON), have you seen him?
-    - I heard Professor [Juan](PERSON) is here, do you know where?
-    - Have you come across Professor [Green](PERSON)?
-    - Have you seen Professor [Hall](PERSON)?
-    - Can you tell me if Professor [Wood](PERSON) is around?
-    - I need to speak with Professor [Turner](PERSON), have you seen him?
-    - Where might Professor [Phillips](PERSON) be?
-    - Is Professor [Roberts](PERSON) in the building?
+    - where is professor [PINDADO TOST ZAIRA](PERSON)
+    - Has anyone seen Professor [DAZA FERNANDEZ VANESA](PERSON)
+    - Where could Professor [NIKBAKHT SILAB RASOUL](PERSON) be
+    - Do you know the whereabouts of Professor [NIKBAKHT SILAB RASOUL](PERSON)
+    - I can't seem to find Professor [NIKBAKHT SILAB RASOUL](PERSON), have you seen him
+    - Is Professor [TEN VENTURA CARLA](PERSON) around
+    - Can someone tell me where Professor [ABENIA POLO PASCUAL PABLO](PERSON) is
+    - I'm looking for Professor [TEN VENTURA CARLA](PERSON), have you seen him
+    - Professor [NIKBAKHT SILAB RASOUL](PERSON), have you seen him
+    - I heard Professor [PIELLA FENOY GEMA](PERSON) is here, do you know where
+    - Have you come across Professor [ABENIA POLO PASCUAL PABLO](PERSON)
+    - Have you seen Professor [ABURA'ED AHMED GHASSAN TAWFIQ](PERSON)
+    - Can you tell me if Professor [ABURA'ED AHMED GHASSAN TAWFIQ](PERSON) is around
+    - I need to speak with Professor [LLUCH ALVAREZ ERIC](PERSON), have you seen him
+    - Where might Professor [PIELLA FENOY GEMA](PERSON) be
+    - Is Professor [PIELLA FENOY GEMA](PERSON) in the building
 # - intent: depart_info
 #   examples: |
 #     - where is professor [PINDADO TOST, ZAIRA](PERSON)

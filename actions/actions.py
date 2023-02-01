@@ -11,15 +11,15 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-import pandas as pd;
-import os
+from rasa_sdk.events import AllSlotsReset, UserUttered, SlotSet, ActionExecuted, EventType, FollowupAction, Restarted, SessionStarted, SlotSet
 
-df = pd.read_csv("./data/listado.csv")
-df.set_index(df["NOMBRE"].str.lower(),inplace=True)
+import pandas as pd;
 # from TTS.api import TTS
 
-# model_name = TTS.list_models()[0]
 
+df = pd.read_csv("./data/listado.csv")
+# df.set_index(df["NOMBRE"].str.lower(),inplace=True)
+# model_name = TTS.list_models()[0]
 # tts = TTS(model_name)
 
 # class ActionHelloWorld(Action):
@@ -37,6 +37,14 @@ df.set_index(df["NOMBRE"].str.lower(),inplace=True)
 #         tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
 #         return []
 
+
+def findFromCsv(tracker, slot_name, look_for):
+    slot_value = tracker.get_slot(slot_name).lower()
+    df["isIncluded"] = df[look_for].str.lower().str.find(slot_value)
+    res = df.loc[df["isIncluded"] != -1]
+    # print(res)
+    
+    return res
 class ActionDepartInfo(Action):
 
     def name(self) -> Text:
@@ -46,10 +54,16 @@ class ActionDepartInfo(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        professor_name = tracker.get_slot("PERSON").lower()
-        msg = "professor " + professor_name  + " is in " + df.loc[professor_name, "GRUPO"] + " and " + professor_name + "'s office room number is " + df.loc[professor_name, "DESPACHO"]
+        res = findFromCsv(tracker, "PERSON", "NOMBRE")
+        msg = "Professor " + res["NOMBRE"].values[0]  + " is in " + res["GRUPO"].values[0] + " and " + res["NOMBRE"].values[0] + "'s office room number is " + res["DESPACHO"].values[0]
         dispatcher.utter_message(text=msg)
         print(tracker.slots)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
         return []
+        
+class SlotsReset(Action):
+	def name(self):
+		return 'action_slot_reset'
+	def run(self, dispatcher, tracker, domain):
+			return[AllSlotsReset()]
