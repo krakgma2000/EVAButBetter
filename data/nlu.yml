@@ -86,6 +86,27 @@ nlu:
 - intent: say_hello
   examples: |
     - hello, world.
-- intent: room_info
+- intent: depart_info
   examples: |
-    - where is professor [](professor)
+    - where is professor [PINDADO TOST, ZAIRA](PERSON)
+    - Has anyone seen Professor [John](PERSON)
+    - Where could Professor [John](PERSON) be?
+    - Do you know the whereabouts of Professor [John](PERSON)?
+    - I can't seem to find Professor [Smith](PERSON), have you seen him?
+    - Is Professor [Green](PERSON) around?
+    - Can someone tell me where Professor [John](PERSON) is?
+    - I'm looking for Professor [John](PERSON), have you seen him?
+    - Professor [King](PERSON), have you seen him?
+    - I heard Professor [Juan](PERSON) is here, do you know where?
+# - intent: depart_info
+#   examples: |
+#     - where is professor [PINDADO TOST, ZAIRA](PERSON)
+#     - Has anyone seen Professor [John](PERSON)
+#     - Where could Professor [John](PERSON) be?
+#     - Do you know the whereabouts of Professor [John](PERSON)?
+#     - I can't seem to find Professor [Smith](PERSON), have you seen him?
+#     - Is Professor [Green](PERSON) around?
+#     - Can someone tell me where Professor [John](PERSON) is?
+#     - I'm looking for Professor [John](PERSON), have you seen him?
+#     - Professor [King](PERSON), have you seen him?
+#     - I heard Professor [Juan](PERSON) is here, do you know where?

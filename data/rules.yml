@@ -19,5 +19,5 @@ rules:
 
 - rule: consult professor position info
   steps:
-    - intent: room_info
-    - action: action_room_info
+    - intent: depart_info
+    - action: action_depart_info

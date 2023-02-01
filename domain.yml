@@ -9,18 +9,18 @@ intents:
   - mood_unhappy
   - bot_challenge
   - say_hello
-  - room_info
+  - depart_info
 
 entities:
-  - professor
+  - PERSON
 slots:
-  professors_name:
+  PERSON:
     type: text
     influence_conversation: false
     mappings:
-      - type: from entity
-        entity: professor
-        intent: room_info
+      - type: from_entity
+        entity: PERSON
+        intent: depart_info
 
 responses:
   utter_greet:
@@ -51,4 +51,4 @@ session_config:
 
 actions:
   - action_hello_world
-  - action_room_info
+  - action_depart_info
