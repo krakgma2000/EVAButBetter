@@ -1,7 +1,7 @@
 class Embedder:
 
-    def __init__(self):
-        pass
+    def __init__(self, model_emb):
+        self.model_emb = model_emb
 
     def encode(self, text):
         raise NotImplementedError
