@@ -1,9 +1,9 @@
 import nltk
 
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('maxent_ne_chunker')
-nltk.download('words')
+# nltk.download('wordnet')
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('maxent_ne_chunker')
+# nltk.download('words')
 from lib.extraction.extractor_wrapper import Extractor
 from nltk.tag import pos_tag
 from nltk import WordNetLemmatizer, ne_chunk
