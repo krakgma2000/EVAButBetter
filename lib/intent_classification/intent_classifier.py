@@ -1,6 +1,6 @@
 class Classifier:
     def __init__(self, model):
-        self.model = model
+        pass
 
-    def predict(self, embeddings):
+    def predict(self, embedding):
         raise NotImplementedError

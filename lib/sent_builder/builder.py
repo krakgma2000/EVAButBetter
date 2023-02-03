@@ -13,3 +13,16 @@ class Builder:
 
 
 # print(Builder(Tools()).build("Hello World. how are yo?"))
+
+# import time
+# tools = Tools()
+# from lib.extraction.extractor_spacy import ExtractorSpaCy
+# tools.extractor = ExtractorSpaCy()
+# tmp = time.time()
+# print(Builder(tools).build("Hello World. how are yo?"))
+# print(time.time()-tmp)
+# from lib.extraction.extractor_nltk import ExtractorNLTK
+# tools.extractor = ExtractorNLTK()
+# tmp = time.time()
+# print(Builder(tools).build("Hello World. how are yo?"))
+# print(time.time()-tmp)
