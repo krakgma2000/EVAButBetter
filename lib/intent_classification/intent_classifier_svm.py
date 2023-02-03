@@ -11,7 +11,6 @@ import pickle
 import numpy as np
 import os
 
-
 Cs_range = np.round(np.logspace(-4, 5, 20), 4)
 gammas_range = np.round(np.logspace(-4, 5, 20), 4)
 
