@@ -1,11 +1,13 @@
 from transformers import AutoTokenizer, AutoModel
 import torch
-
+import torch.nn.functional as F
+import os
 MODEL_NAME = 'huawei-noah/TinyBERT_General_4L_312D'
 LABELS = ['fh', 's', 'b', '%', 'qy', 'fg', 'qw', 'qrr', 'h', 'qr', 'qo', 'qh']
 model_bert = AutoModel.from_pretrained(MODEL_NAME)
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-PATH = '../models/mrda_bert_312_10ep.pth'
+PATH = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())),
+                          os.path.join("models", 'mrda_bert_312_10ep.pth'))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -52,7 +54,7 @@ class BERTClassifier:
             # token_type_ids = inputs.token_type_ids
             # token_type_ids = token_type_ids.to(device)
             outputs = self.model(ids, mask)
-            proba = torch.sigmoid(outputs).cpu().numpy()[0]
+            proba = F.softmax(outputs).cpu().numpy()[0]
 
         if return_type == 'label':
             return self.labels[proba.argmax()]
@@ -63,9 +65,9 @@ class BERTClassifier:
         return max(proba)
 
 
-# import time
-#
-# bert = BERTClassifier()
-# time_start = time.time()
-# print(bert.predict("Where are my pants?"))
-# print(time.time()-time_start)
+import time
+
+bert = BERTClassifier()
+time_start = time.time()
+print(bert.predict("Where are my pants?"))
+print(time.time()-time_start)
