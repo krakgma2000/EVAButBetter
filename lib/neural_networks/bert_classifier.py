@@ -65,9 +65,9 @@ class BERTClassifier:
         return max(proba)
 
 
-import time
-
-bert = BERTClassifier()
-time_start = time.time()
-print(bert.predict("Where are my pants?"))
-print(time.time()-time_start)
+# import time
+#
+# bert = BERTClassifier()
+# time_start = time.time()
+# print(bert.predict("Where are my pants?"))
+# print(time.time()-time_start)
