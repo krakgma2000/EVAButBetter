@@ -2,12 +2,13 @@ from transformers import AutoTokenizer, AutoModel
 import torch
 import torch.nn.functional as F
 import os
+
 MODEL_NAME = 'huawei-noah/TinyBERT_General_4L_312D'
 LABELS = ['fh', 's', 'b', '%', 'qy', 'fg', 'qw', 'qrr', 'h', 'qr', 'qo', 'qh']
 model_bert = AutoModel.from_pretrained(MODEL_NAME)
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 PATH = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())),
-                          os.path.join("models", 'mrda_bert_312_10ep.pth'))
+                    os.path.join("models", 'mrda_bert_312_10ep.pth'))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -28,8 +29,6 @@ class BERTModel(torch.nn.Module):
         return output
 
 
-# MODEL_NAME = 'huawei-noah/TinyBERT_General_6L_768D'#'huawei-noah/TinyBERT_General_4L_312D'#huawei-noah/TinyBERT_General_6L_768D
-
 model = BERTModel(model=model_bert, output_size=len(LABELS))
 
 
@@ -39,7 +38,7 @@ class BERTClassifier:
         self.model.load_state_dict(torch.load(model_path, map_location=device))
         self.model.to(device)
         self.tokenizer = tokenizer
-        self.labels = labels
+        self.ids = labels
 
     def predict(self, text, return_type='label'):
         """ Calculate dialog act type of a text. `return_type` can be 'label' or 'proba' """
@@ -57,13 +56,12 @@ class BERTClassifier:
             proba = F.softmax(outputs).cpu().numpy()[0]
 
         if return_type == 'label':
-            return self.labels[proba.argmax()]
+            return self.ids[proba.argmax()]
         elif return_type == 'index':
             return proba.argmax()
         elif return_type == 'proba':
             max(proba)
-        return max(proba)
-
+        return {'label': self.ids[proba.argmax()], 'prob': max(proba)}
 
 # import time
 #
