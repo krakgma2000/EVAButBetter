@@ -1,4 +1,4 @@
-from lib.intent_classification.intent_classifier import Classifier
+from intent_classification.intent_classifier import Classifier
 import numpy as np
 from numpy.linalg import norm
 

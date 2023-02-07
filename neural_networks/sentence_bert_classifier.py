@@ -2,7 +2,7 @@ import torch
 import numpy as np
 import os
 
-MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())),
+MODEL_PATH = os.path.join(os.path.dirname(os.getcwd()),
                           os.path.join("models", 'mrda_fnn_312_1000ep.pth'))
 print(MODEL_PATH)
 
@@ -46,14 +46,14 @@ class SentenceBERTClassifier:
             return {'label': self.ids[proba.argmax()], 'prob': max(proba)}
 
 
-# from sentence_transformers import SentenceTransformer
-#
-# MODEL_NAME = 'huawei-noah/TinyBERT_General_4L_312D'
-# model_bert = SentenceTransformer(MODEL_NAME)
-#
-# import time
-#
-# encoding = model_bert.encode("Where are my pants?")
-# time_start = time.time()
-# print(SentenceBERTClassifier().predict(encoding))
-# print(time.time() - time_start)
+from sentence_transformers import SentenceTransformer
+
+MODEL_NAME = 'huawei-noah/TinyBERT_General_4L_312D'
+model_bert = SentenceTransformer(MODEL_NAME)
+
+import time
+
+encoding = model_bert.encode("Where are my pants?")
+time_start = time.time()
+print(SentenceBERTClassifier().predict(encoding))
+print(time.time() - time_start)

@@ -7,7 +7,7 @@ MODEL_NAME = 'huawei-noah/TinyBERT_General_4L_312D'
 LABELS = ['fh', 's', 'b', '%', 'qy', 'fg', 'qw', 'qrr', 'h', 'qr', 'qo', 'qh']
 model_bert = AutoModel.from_pretrained(MODEL_NAME)
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-PATH = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())),
+PATH = os.path.join(os.path.dirname(os.getcwd()),
                     os.path.join("models", 'mrda_bert_312_10ep.pth'))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

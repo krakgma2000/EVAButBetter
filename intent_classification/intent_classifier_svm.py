@@ -1,4 +1,4 @@
-from lib.intent_classification.intent_classifier import Classifier
+from intent_classification.intent_classifier import Classifier
 
 # from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
