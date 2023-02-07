@@ -1,5 +1,5 @@
 class Classifier:
-    def __init__(self, model):
+    def __init__(self):
         pass
 
     def predict(self, embedding):
