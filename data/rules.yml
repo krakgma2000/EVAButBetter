@@ -17,8 +17,29 @@ rules:
     - intent: say_hello
     - action: action_hello_world
 
-- rule: consult professor position info
+# - rule: consult professor info
+#   steps:
+#     - intent: professor_info
+#     - action: action_professor_info
+#     - action: action_slot_reset
+
+- rule: consult department info
   steps:
-    - intent: depart_info
-    - action: action_depart_info
+    - intent: department_info
+    - action: action_department_info
     - action: action_slot_reset
+
+- rule: consult faculty info
+  steps:
+    - intent: faculty_info
+    - action: action_faculty_info
+    - action: action_slot_reset
+
+# - rule: Activate form
+#   steps:
+#   - intent: professor_info
+#   - action: professor_form
+#   - active_loop: professor_form
+#   - intent: professor_info
+#   - action: action_professor_info
+#   - action: action_slot_reset

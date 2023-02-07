@@ -9,10 +9,13 @@ intents:
   - mood_unhappy
   - bot_challenge
   - say_hello
-  - depart_info
+  - professor_info
+  - department_info
+  - faculty_info
 
 entities:
   - PERSON
+  - ORG
 slots:
   PERSON:
     type: text
@@ -20,7 +23,18 @@ slots:
     mappings:
       - type: from_entity
         entity: PERSON
-        intent: depart_info
+        intent: professor_info
+  ORG:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: ORG
+        intent: department_info
+forms:
+  professor_form:
+    required_slots:
+        - PERSON
 
 responses:
   utter_greet:
@@ -44,6 +58,8 @@ responses:
 
   utter_youarewelcome:
   - text: "you are very welcome."
+  utter_ask_professor_form_PERSON:
+  - text: "Please input the professor's name"
 
 session_config:
   session_expiration_time: 60
@@ -51,5 +67,7 @@ session_config:
 
 actions:
   - action_hello_world
-  - action_depart_info
+  - action_professor_info
+  - action_department_info
+  - action_faculty_info
   - action_slot_reset
