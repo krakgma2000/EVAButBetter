@@ -14,36 +14,51 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import AllSlotsReset, UserUttered, SlotSet, ActionExecuted, EventType, FollowupAction, Restarted, SessionStarted, SlotSet
 
 import pandas as pd;
+import Levenshtein as lv;
 # from TTS.api import TTS
 
 
 df = pd.read_csv("./data/listado.csv")
-# df.set_index(df["NOMBRE"].str.lower(),inplace=True)
 # model_name = TTS.list_models()[0]
 # tts = TTS(model_name)
 
-# class ActionHelloWorld(Action):
-
-#     def name(self) -> Text:
-#         return "action_hello_world"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-#         dispatcher.utter_message(text="Hello World!")
-
-#         wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
-#         tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
-#         return []
-
 
 def findFromCsv(tracker, slot_name, look_for):
+    min_distance = 999
+    isFind = True
     slot_value = tracker.get_slot(slot_name).lower()
-    df["isIncluded"] = df[look_for].str.lower().str.find(slot_value)
+    # try:
+    #     df["isIncluded"] = df[look_for].str.lower().str.find(slot_value) 
+    #     res = df.loc[df["isIncluded"] != -1]
+    #     print(res)
+    #     return res
+    # except:
+    #     for index, ele in df[look_for].iterrows():
+    #         distance = lv.distance(ele, slot_value)
+    #         if distance == 0:
+    #             return ele
+    #         if distance < min_distance:
+    #             min_distance = distance
+    #             ind = index
+    #     return df[ind]
+    df["isIncluded"] = df[look_for].str.lower().str.find(slot_value) 
     res = df.loc[df["isIncluded"] != -1]
-    print(res)
-    return res
+    # print(res.empty)
+    if res.empty:
+        isFind = False
+        for index, ele in df.iterrows():
+            distance = lv.distance(ele[look_for].lower(), slot_value)
+            if distance == 0:
+                return ele
+            if distance < min_distance:
+                min_distance = distance
+                # ind = index
+                res = ele
+        # print(ind)
+        # return df.irow(ind)
+    # print(res['NOMBRE'])
+    return res, isFind
+
 class ActionProfessorInfo(Action):
 
     def name(self) -> Text:
@@ -53,10 +68,13 @@ class ActionProfessorInfo(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        res = findFromCsv(tracker, "PERSON", "NOMBRE")
-        msg = "Professor " + res["NOMBRE"].values[0]  + " is in " + res["GRUPO"].values[0] + " and " + res["NOMBRE"].values[0] + "'s office room number is " + res["DESPACHO"].values[0]
-        dispatcher.utter_message(text=msg)
+        res, isFind = findFromCsv(tracker, "PERSON", "NOMBRE")
+        if isFind:
+            msg = "Professor " + res["NOMBRE"].values[0]  + " is in " + res["GRUPO"].values[0] + " and the office number is " + res["DESPACHO"].values[0]
+        else:
+            msg = "Can't find the professor given the name, the professor who has the most similar name is " + res["NOMBRE"] + " in " + res["GRUPO"] + " and the office room is "  + res["DESPACHO"]
         print(tracker.slots)
+        dispatcher.utter_message(text=msg)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
         return []
@@ -72,8 +90,8 @@ class ActionDepartmentInfo(Action):
 
         res = findFromCsv(tracker, "ORG", "GRUPO")
         # print(res)
-        msg = "There are  " + str(res.shape[0])  + " professors in " + res["GRUPO"].values[0]
         dispatcher.utter_message(text=msg)
+        msg = "There are  " + str(res.shape[0])  + " professors in " + res["GRUPO"].values[0]
         # print(tracker.slots)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")

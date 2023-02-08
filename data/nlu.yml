@@ -57,7 +57,7 @@ nlu:
 #1
 - intent: professor_info
   examples: |
-    - where is professor [lobo jorge](PERSON)
+    - where is professor [lobo jorge, Crowela Ciero](PERSON)
     - Has anyone seen Professor [DAZA FERNANDEZ VANESA](PERSON)
     - Where could Professor [NIKBAKHT SILAB RASOUL](PERSON) be
     - Do you know the whereabouts of Professor [NIKBAKHT SILAB RASOUL](PERSON)
