@@ -32,7 +32,7 @@ class ExtractorSpaCy(Extractor):
                     word["lemma"] = token.lemma_
 
                 output[token] = word
-            output_list.append({"sentence": output})
+            output_list.append({"entities": output})
 
         return output_list
 

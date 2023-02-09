@@ -19,7 +19,7 @@ class Builder:
 # from lib.extraction.extractor_spacy import ExtractorSpaCy
 # tools.extractor = ExtractorSpaCy()
 # tmp = time.time()
-# print(Builder(tools).build("Hello World. how are yo?"))
+# print(Builder(tools).build("Hello World. Flight at 12:00, how are you professor Jorge?"))
 # print(time.time()-tmp)
 # from lib.extraction.extractor_nltk import ExtractorNLTK
 # tools.extractor = ExtractorNLTK()

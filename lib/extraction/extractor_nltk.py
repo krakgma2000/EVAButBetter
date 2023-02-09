@@ -31,7 +31,7 @@ class ExtractorNLTK(Extractor):
                     word["lemma"] = WordNetLemmatizer().lemmatize(token)
 
                 output[token] = word
-            output_list.append({"sentence": output})
+            output_list.append({"entities": output})
 
         return output_list
 
