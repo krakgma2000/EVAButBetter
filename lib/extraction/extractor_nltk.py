@@ -1,15 +1,13 @@
 import nltk
 
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('maxent_ne_chunker')
-nltk.download('words')
+# nltk.download('wordnet')
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('maxent_ne_chunker')
+# nltk.download('words')
 from lib.extraction.extractor_wrapper import Extractor
 from nltk.tag import pos_tag
 from nltk import WordNetLemmatizer, ne_chunk
 from nltk.chunk import tree2conlltags
-
-sentence = "Mark and John are working at Google."
 
 
 class ExtractorNLTK(Extractor):
@@ -33,7 +31,7 @@ class ExtractorNLTK(Extractor):
                     word["lemma"] = WordNetLemmatizer().lemmatize(token)
 
                 output[token] = word
-            output_list.append({"sentence": output})
+            output_list.append({"entities": output})
 
         return output_list
 
