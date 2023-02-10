@@ -10,7 +10,7 @@ class ClassifierDA(Classifier):
         self.model = model
 
     def predict(self, embedding):
-        return self.model.predict(embedding)
+        return {'dialog_act': self.model.predict(embedding)}
 
 # from sentence_transformers import SentenceTransformer
 #
