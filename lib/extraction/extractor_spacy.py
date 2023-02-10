@@ -8,11 +8,9 @@ import spacy
 # Load English tokenizer, tagger, parser and NER
 nlp = spacy.load("en_core_web_sm")
 
-# sents =
-print(nlp("Hello World. Flight at 12:00, how are you professor Bonada Sanjaume Joi Jiu Ko? Where is AI&ML lab?").ents)
 
+# print(nlp("Hello World. Flight at 12:00, how are you professor Bonada Sanjaume Joi Jiu Ko? Where is AI&ML lab?").ents)
 
-# print([ee.label_ for ee in sents.ents])
 
 
 class ExtractorSpaCy(Extractor):
