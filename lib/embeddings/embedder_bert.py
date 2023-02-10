@@ -15,7 +15,7 @@ class EmbedderBERT(Embedder):
         if isinstance(text, str):
             result = {"embedding": {text: self.__sent_emb(text)}}
         elif isinstance(text, list):
-            result = [{"embedding": {sentence: self.__sent_emb(sentence)}} for sentence in text]
+            result = [{"embedding": self.__sent_emb(sentence)} for sentence in text]
         return result
 
     def __sent_emb(self, text):
