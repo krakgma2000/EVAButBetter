@@ -14,24 +14,23 @@ class ExtractorNLTK(Extractor):
     def __init__(self):
         super().__init__()
 
-    def extract(self, tokens, ner=True, pos=True, morph=True, lemma=True):
+    def extract_tokens(self, tokens, ner=True, pos=True, morph=True, lemma=True, skip_empty=True):
         output_list = []
 
         for sent_tokens in tokens:
-            output = dict()
             ner_and_pos = tree2conlltags(ne_chunk(pos_tag(sent_tokens)))
             for i, token in enumerate(sent_tokens):
-                word = {"token": token}
+                word = {"value": token}
                 if ner:
-                    word["ner"] = ner_and_pos[i][2]
+                    word["entity"] = ner_and_pos[i][2]
 
                 if pos:
                     word["pos"] = ner_and_pos[i][1]
                 if lemma:
                     word["lemma"] = WordNetLemmatizer().lemmatize(token)
 
-                output[token] = word
-            output_list.append({"entities": output})
+                if word["entity"] and skip_empty:
+                    output_list.append({"data": word})
 
         return output_list
 
