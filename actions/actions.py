@@ -91,10 +91,14 @@ class ActionDepartmentInfo(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        res = findFromCsv(tracker, "ORG", "GRUPO")
+        res, isFind = findFromCsv(tracker, "ORG", "GRUPO")
         # print(res)
+        if isFind:
+            msg = "There are  " + str(res.shape[0])  + " professors in " + res["GRUPO"].values[0]
+        else:
+            msg = "Can't find the grupo given the name, the most similar grupo  is " + res["GROUPO"] + " there are " + str(res.shape[0]) + " professors in the grupo" 
+        print(tracker.slots)
         dispatcher.utter_message(text=msg)
-        msg = "There are  " + str(res.shape[0])  + " professors in " + res["GRUPO"].values[0]
         # print(tracker.slots)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
@@ -108,10 +112,7 @@ class ActionFacultyInfo(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        # res = findFromCsv(tracker, "ORG", "GRUPO")
-        # # print(res)
-        # msg = "There are  " + str(res.shape[0])  + " professors in " + res["GRUPO"].values[0]
-        msg = "There are xx departments and xx professors in UPF"
+        msg = "There are 24 departments and 231 professors in UPF, for more information, please provide more details about the question."
         dispatcher.utter_message(text=msg)
         # print(tracker.slots)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])

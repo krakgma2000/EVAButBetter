@@ -1,73 +1,60 @@
-version: "3.1"
-
+version: '3.1'
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-  - say_hello
-  - professor_info
-  - department_info
-  - faculty_info
-
+- affirm
+- bot_challenge
+- deny
+- department_info
+- faculty_info
+- goodbye
+- greet
+- mood_great
+- mood_unhappy
+- professor_info
+- say_hello
 entities:
-  - PERSON
-  - ORG
+- ORG
+- PERSON
 slots:
   PERSON:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
-      - type: from_entity
-        entity: PERSON
-        intent: professor_info
+    - type: from_entity
+      entity: PERSON
+      intent: professor_info
   ORG:
     type: text
-    influence_conversation: false
+    influence_conversation: true
     mappings:
-      - type: from_entity
-        entity: ORG
-        intent: department_info
+    - type: from_entity
+      entity: ORG
+      intent: department_info
 forms:
   professor_form:
     required_slots:
-        - PERSON
-
+    - PERSON
+  department_form:
+    required_slots:
+    - ORG
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  # utter_cheer_up:
-  # - text: "Here is something to cheer you up:"
-  #   image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  # utter_did_that_help:
-  # - text: "Did that help you?"
- 
-  # utter_happy:
-  # - text: "Great, carry on!"
-
+  - text: Hey! How are you?
   utter_goodbye:
-  - text: "Bye"
-
+  - text: Bye
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+  - text: I am a chat bot, I can provide the information about UPF.
   utter_youarewelcome:
-  - text: "you are very welcome."
-  utter_ask_professor_form_PERSON:
-  - text: "Please input the professor's name"
-
+  - text: You are very welcome.
+  utter_ask_PERSON:
+  - text: Please provide the professor's name
+  utter_ask_ORG:
+  - text: Please provide the department's name
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
-
 actions:
-  - action_hello_world
-  - action_professor_info
-  - action_department_info
-  - action_faculty_info
-  - action_slot_reset
+- action_department_info
+- action_faculty_info
+- action_hello_world
+- action_professor_info
+- action_slot_reset

@@ -1,5 +1,4 @@
 version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
@@ -54,7 +53,6 @@ nlu:
 - intent: say_hello
   examples: |
     - hello, world.
-#1
 - intent: professor_info
   examples: |
     - where is professor [lobo jorge, Crowela Ciero](PERSON)
@@ -82,45 +80,19 @@ nlu:
     - Who exactly is professor [SERRANO RAGUAN MONTSERRAT](PERSON)
     - Can you give me a brief background on professor [GARCIA ESCOBOSA LYDIA](PERSON)
     - Who is the individual known as professor [MARTA MONTIEL](PERSON)
-    - [SERRANO RAGUAN MONTSERRAT](PERSON)
-#2
-# - intent: course_info
-#   examples: |
-#     - where is professor [PINDADO TOST, ZAIRA](PERSON)
-#3
-# - intent: close_open_time_info
-#   examples: |
-#     - where is professor [PINDADO TOST, ZAIRA](PERSON)
-#4
 - intent: department_info
   examples: |
-    - Can you provide information about the size of the [WSSC: Web Science and Social Computing](ORG) ORG. including the number of professors
-    - How many faculty members are in the [TALN: Natural Language Processing](ORG) ORG
+    - Can you provide information about the size of the [WSSC: Web Science and Social Computing](ORG), including the number of professors
+    - How many faculty members are in the [TALN: Natural Language Processing](ORG)
     - Could you give me the number of professors in [SIMBIOsys: Simulation Imaging and Modelling for Biomedical Systems](ORG)
-    - Can you let me know the headcount for the [UGA TIC - Pedagogue in USQUID](ORG) ORG's faculty
-    - Can you give me information about the faculty in the [UGA TIC- Recruitment  Docorate & International ETIC](ORG) ORG. including the number of members
-    - I was wondering if you could tell me the number of professors in the [UGA TIC- Recruitment  Doctorate & International ETIC](ORG) ORG.,4
-    - Could you provide information about the size of the faculty in the [UGA TIC: Research Promotion & Activities](ORG) ORG
+    - Can you let me know the headcount for the [UGA TIC - Pedagogue in USQUID](ORG)
+    - Can you give me information about the faculty in the [UGA TIC- Recruitment  Docorate & International ETIC](ORG), including the number of members
+    - I was wondering if you could tell me the number of professors in the [UGA TIC- Recruitment  Doctorate & International ETIC](ORG)
+    - Could you provide information about the size of the faculty in the [UGA TIC: Research Promotion & Activities](ORG)
     - Can you give me an idea of the number of professors in [WN: Wireless Networking Group](ORG)
-    - How many individuals teach in the [AI&ML: Artificial Intelligence and Machine Learning group](ORG) ORG
-    - Can you give me information about the [,BERG Biomedical Electronics Research Group](ORG) ORG. including the headcount for the faculty
-    - Could you let me know the number of faculty members in the [MTG: Music Technology Group](ORG) ORG
-    - I am curious about what ORGs UPF has to offer. can you enlighten me
-    - What are the areas of study available at UPF
-    - I want to understand what ORGs are available at UPF. can you explain
-    - Can you give me a rundown of the different ORGs at UPF
-    - What ORGs can I study at UPF
-    - I am looking for information on the ORGs at UPF. can you help
-    - Can you tell me what subjects are taught at UPF
-    - I am interested in the academic programs offered at UPF. can you provide more information
-    - Can you give me a detailed list of ORGs at UPF
-    - What fields of study are available at UPF
-    - I am considering attending UPF. what ORGs do they have
-    - Can you give me more information on the academic programs offered at UPF
-    - I want to know what courses are offered at UPF. can you help me
-    - Can you provide a breakdown of the different ORGs at UPF
-    - I am trying to understand what ORGs are offered at UPF. can you give me more details
-#5
+    - How many individuals teach in the [AI&ML: Artificial Intelligence and Machine Learning group](ORG)
+    - Can you give me information about the [,BERG Biomedical Electronics Research Group](ORG). including the headcount for the faculty
+    - Could you let me know the number of faculty members in the [MTG: Music Technology Group](ORG)
 - intent: faculty_info
   examples: |
     - How many instructors are employed at UPF
@@ -135,4 +107,19 @@ nlu:
     - Who are the current faculty members at UPF
     - Can you list the names of the teachers at UPF
     - Can you give me information about the faculty at Universitat Pompeu Fabra
-    - Who are the professors at Universitat Pompeu Fabra,5
+    - Who are the professors at Universitat Pompeu Fabra
+    - I am curious about what courses UPF has to offer. can you enlighten me
+    - What are the areas of study available at UPF
+    - I want to understand what courses are available at UPF. can you explain
+    - Can you give me a rundown of the different courses at UPF
+    - What courses can I study at UPF
+    - I am looking for information on the courses at UPF. can you help
+    - Can you tell me what subjects are taught at UPF
+    - I am interested in the academic programs offered at UPF. can you provide more information
+    - Can you give me a detailed list of departments at UPF
+    - What fields of study are available at UPF
+    - I am considering attending UPF. what departments do they have
+    - Can you give me more information on the academic programs offered at UPF
+    - I want to know what courses are offered at UPF. can you help me
+    - Can you provide a breakdown of the different departments at UPF
+    - I am trying to understand what departments are offered at UPF. can you give me more details

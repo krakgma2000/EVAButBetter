@@ -1,20 +1,24 @@
 version: "3.1"
 
 stories:
-# - story: Activate form
-#   steps:
-#   - intent: professor_info
-#   - slot_was_set:
-#     - PERSON
-#   - action: action_professor_info
-#   - action: action_slot_reset
-
-- story: Activate form
+- story: interactive_story_1
   steps:
   - intent: professor_info
   - action: professor_form
   - active_loop: professor_form
   - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
   - action: action_professor_info
   - action: action_slot_reset
 
+- story: interactive_story_2
+  steps:
+  - intent: department_info
+  - action: department_form
+  - active_loop: department_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_department_info
+  - action: action_slot_reset
