@@ -1,0 +1,20 @@
+version: "3.1"
+
+stories:
+# - story: Activate form
+#   steps:
+#   - intent: professor_info
+#   - slot_was_set:
+#     - PERSON
+#   - action: action_professor_info
+#   - action: action_slot_reset
+
+- story: Activate form
+  steps:
+  - intent: professor_info
+  - action: professor_form
+  - active_loop: professor_form
+  - active_loop: null
+  - action: action_professor_info
+  - action: action_slot_reset
+

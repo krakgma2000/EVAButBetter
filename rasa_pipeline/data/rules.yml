@@ -1,0 +1,45 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: say hello world
+  steps:
+    - intent: say_hello
+    - action: action_hello_world
+
+# - rule: consult professor info
+#   steps:
+#     - intent: professor_info
+#     - action: action_professor_info
+#     - action: action_slot_reset
+
+- rule: consult department info
+  steps:
+    - intent: department_info
+    - action: action_department_info
+    - action: action_slot_reset
+
+- rule: consult faculty info
+  steps:
+    - intent: faculty_info
+    - action: action_faculty_info
+    - action: action_slot_reset
+
+# - rule: Activate form
+#   steps:
+#   - intent: professor_info
+#   - action: professor_form
+#   - active_loop: professor_form
+#   - intent: professor_info
+#   - action: action_professor_info
+#   - action: action_slot_reset

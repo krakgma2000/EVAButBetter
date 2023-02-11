@@ -1,0 +1,138 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: say_hello
+  examples: |
+    - hello, world.
+#1
+- intent: professor_info
+  examples: |
+    - where is professor [lobo jorge, Crowela Ciero](PERSON)
+    - Has anyone seen Professor [DAZA FERNANDEZ VANESA](PERSON)
+    - Where could Professor [NIKBAKHT SILAB RASOUL](PERSON) be
+    - Do you know the whereabouts of Professor [NIKBAKHT SILAB RASOUL](PERSON)
+    - I can't seem to find Professor [NIKBAKHT SILAB RASOUL](PERSON), have you seen him
+    - Is Professor [TEN VENTURA CARLA](PERSON) around
+    - Can someone tell me where Professor [ABENIA POLO PASCUAL PABLO](PERSON) is
+    - I'm looking for Professor [TEN VENTURA CARLA](PERSON), have you seen him
+    - Professor [NIKBAKHT SILAB RASOUL](PERSON), have you seen him
+    - I heard Professor [PIELLA FENOY GEMA](PERSON) is here, do you know where
+    - Have you come across Professor [ABENIA POLO PASCUAL PABLO](PERSON)
+    - Have you seen Professor [ABURA'ED AHMED GHASSAN TAWFIQ](PERSON)
+    - Can you tell me if Professor [ABURA'ED AHMED GHASSAN TAWFIQ](PERSON) is around
+    - I need to speak with Professor [LLUCH ALVAREZ ERIC](PERSON), have you seen him
+    - Where might Professor [PINDADO TOST ZAIRA](PERSON) be
+    - Is Professor [PIELLA FENOY GEMA](PERSON) in the building
+    - Who is professor [FREIRE VEIGA ANA maria](PERSON)
+    - Can you tell me who professor [RAMIREZ CIFUENTES DIANA MICHELLE](PERSON) is
+    - I'm not familiar with professor [BAEZA YATES RICARDO ALBERTO](PERSON). can you introduce them?,1
+    - Could you explain who professor [FRANZONI FEDERICO](PERSON) is
+    - Who is the professor named professor [ADHIKARI MOHIT HEMCHANDRA](PERSON)
+    - Can you provide more information on professor [JIMENEZ GARCIA VANESSA](PERSON)
+    - Who exactly is professor [SERRANO RAGUAN MONTSERRAT](PERSON)
+    - Can you give me a brief background on professor [GARCIA ESCOBOSA LYDIA](PERSON)
+    - Who is the individual known as professor [MARTA MONTIEL](PERSON)
+    - [SERRANO RAGUAN MONTSERRAT](PERSON)
+#2
+# - intent: course_info
+#   examples: |
+#     - where is professor [PINDADO TOST, ZAIRA](PERSON)
+#3
+# - intent: close_open_time_info
+#   examples: |
+#     - where is professor [PINDADO TOST, ZAIRA](PERSON)
+#4
+- intent: department_info
+  examples: |
+    - Can you provide information about the size of the [WSSC: Web Science and Social Computing](ORG) ORG. including the number of professors
+    - How many faculty members are in the [TALN: Natural Language Processing](ORG) ORG
+    - Could you give me the number of professors in [SIMBIOsys: Simulation Imaging and Modelling for Biomedical Systems](ORG)
+    - Can you let me know the headcount for the [UGA TIC - Pedagogue in USQUID](ORG) ORG's faculty
+    - Can you give me information about the faculty in the [UGA TIC- Recruitment  Docorate & International ETIC](ORG) ORG. including the number of members
+    - I was wondering if you could tell me the number of professors in the [UGA TIC- Recruitment  Doctorate & International ETIC](ORG) ORG.,4
+    - Could you provide information about the size of the faculty in the [UGA TIC: Research Promotion & Activities](ORG) ORG
+    - Can you give me an idea of the number of professors in [WN: Wireless Networking Group](ORG)
+    - How many individuals teach in the [AI&ML: Artificial Intelligence and Machine Learning group](ORG) ORG
+    - Can you give me information about the [,BERG Biomedical Electronics Research Group](ORG) ORG. including the headcount for the faculty
+    - Could you let me know the number of faculty members in the [MTG: Music Technology Group](ORG) ORG
+    - I am curious about what ORGs UPF has to offer. can you enlighten me
+    - What are the areas of study available at UPF
+    - I want to understand what ORGs are available at UPF. can you explain
+    - Can you give me a rundown of the different ORGs at UPF
+    - What ORGs can I study at UPF
+    - I am looking for information on the ORGs at UPF. can you help
+    - Can you tell me what subjects are taught at UPF
+    - I am interested in the academic programs offered at UPF. can you provide more information
+    - Can you give me a detailed list of ORGs at UPF
+    - What fields of study are available at UPF
+    - I am considering attending UPF. what ORGs do they have
+    - Can you give me more information on the academic programs offered at UPF
+    - I want to know what courses are offered at UPF. can you help me
+    - Can you provide a breakdown of the different ORGs at UPF
+    - I am trying to understand what ORGs are offered at UPF. can you give me more details
+#5
+- intent: faculty_info
+  examples: |
+    - How many instructors are employed at UPF
+    - Can you list the names of the full-time teachers at UPF
+    - Can you give me information about the professors currently at UPF
+    - Who teaches at UPF and what are their names
+    - Can you tell me the names of the instructors at UPF
+    - Who are the faculty members at UPF
+    - Can you provide a list of the current professors at UPF
+    - How many teachers are on the faculty at UPF
+    - Can you give me details about the full-time instructors at UPF
+    - Who are the current faculty members at UPF
+    - Can you list the names of the teachers at UPF
+    - Can you give me information about the faculty at Universitat Pompeu Fabra
+    - Who are the professors at Universitat Pompeu Fabra,5
