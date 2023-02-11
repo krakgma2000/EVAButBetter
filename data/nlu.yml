@@ -82,6 +82,7 @@ nlu:
     - Who exactly is professor [SERRANO RAGUAN MONTSERRAT](PERSON)
     - Can you give me a brief background on professor [GARCIA ESCOBOSA LYDIA](PERSON)
     - Who is the individual known as professor [MARTA MONTIEL](PERSON)
+    - [SERRANO RAGUAN MONTSERRAT](PERSON)
 #2
 # - intent: course_info
 #   examples: |

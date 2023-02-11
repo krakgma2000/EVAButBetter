@@ -47,9 +47,12 @@ def findFromCsv(tracker, slot_name, look_for):
     if res.empty:
         isFind = False
         for index, ele in df.iterrows():
-            distance = lv.distance(ele[look_for].lower(), slot_value)
-            if distance == 0:
-                return ele
+            distance = 0
+            name_array = ele[look_for].lower().split(" ")
+            for name in name_array:
+                distance += lv.distance(name, slot_value)
+                # if distance == 0:
+                #     return ele
             if distance < min_distance:
                 min_distance = distance
                 # ind = index
