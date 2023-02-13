@@ -221,7 +221,7 @@ class IntentClassificationModel:
         test_keras_sequence = keras.preprocessing.sequence.pad_sequences(test_keras, maxlen=input_size,
                                                                          padding='post')
         pred = self.model.predict(test_keras_sequence)
-        return self.label_encoder.inverse_transform(np.argmax(pred, 1))[0]
+        return {"intent":self.label_encoder.inverse_transform(np.argmax(pred, 1))[0],"prob":np.max(pred)}
 
 
 # **** BUILD EXAMPLE (GENERIC)****#
@@ -249,15 +249,18 @@ intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, toke
                                         loss_output, model_output)
 
 # **** PREDICT EXAMPLE ****#
+generic_dataset_path = "./datasets/data_full.json"
+embedder_train_dataset_path = "./datasets/glove.6B.100d.txt"
+domain_dataset_path = "./datasets/train_set.csv"
 intentClassModel = IntentClassificationModel(embedder_train_dataset_path,domain_dataset_path)
 intentClassModel.load_model(model_file="./models/generic_intent_classifier.h5")
 intentClassModel.load_tokenizer(tokenizer_file="./utils/generic_tokenizer.pkl")
 intentClassModel.load_label_encoder(label_encoder_file="./utils/generic_label_encoder.pkl")
-print(intentClassModel.get_intent("Thank you"))
+print(intentClassModel.get_intent("What's the current weather in the upf?"))
 
 def validate_model(type):
     embedder_train_dataset_path = "./datasets/glove.6B.100d.txt"
-    domain_dataset_path = "./datasets/validation_set.csv"
+    domain_dataset_path = "datasets/train_set.csv"
     intentClassModel = IntentClassificationModel(embedder_train_dataset_path, domain_dataset_path)
 
     intentClassModel.load_model(model_file="./models/" + type + "_intent_classifier.h5")
