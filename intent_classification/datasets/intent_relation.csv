@@ -1,0 +1,130 @@
+﻿sentence,label
+I want to know where Professor Johnson's office is.,1
+Can you tell me which room Professor Kim usually works in?,1
+I'm trying to find the office of Professor Lee. Do you know where it is?,1
+I need to speak to the professor who teaches psychology. Can you help me locate them?,1
+I'm looking for the professor who specializes in medieval literature. Do you have any information on where they might be?,1
+I'm trying to find the professor who supervises the undergraduate research program. Can you help me with that?,1
+Can you tell me which room Professor Hernandez is in? I need to meet with them.,1
+I'm looking for the office of the professor who teaches creative writing. Do you have any idea where it might be?,1
+Do you know where I can find the office of Professor Gupta? I need to speak to them.,1
+I need to find the professor who advises the student council. Can you help me locate them?,1
+Professor Smith.,1
+John.,1
+Dr. Jones.,1
+Chemistry professor.,1
+Biology department professor.,1
+Mathematics professor.,1
+AI professor.,1
+Professor Brown's office.,1
+Physics professor.,1
+Undergraduate research program professor.,1
+I'm looking for the room where the history professors have their offices,1
+I need to find the room where the business professors usually work from.,1
+Can you tell me which room the biology professors are in?,1
+I want to know where the English department professors have their offices.,1
+I'm trying to find the room where the physics professors usually work from. Can you help me?,1
+Can you tell me which room the chemistry professors are in? I need to meet with one of them.,1
+I need to find the room where the math professors have their offices.,1
+Can you help me find the room where the engineering professors work from?,1
+I'm looking for the room where the computer science professors have their offices. Can you help me?,1
+Can you tell me which room the law professors are in? I need to speak to one of them.,1
+I'm looking for information about the history of art course that's offered in the fall.,2
+I'm interested in learning more about the engineering course that was mentioned in the student newsletter.,2
+I'm trying to find out if the biology course has any prerequisites before I can register for it.,2
+Can you help me find out if the computer science course is offered in the winter semester?,2
+I'm looking for information about the psychology course that's taught by Professor Johnson. Do you know anything about it?,2
+I need to know if the sociology course counts towards the requirements for the major in anthropology.,2
+Can you tell me more about the creative writing course that's taught on the weekend?,2
+I'm interested in finding out if the physics course is offered in an online format.,2
+I need to find out if the philosophy course has any discussion sections that are available.,2
+Can you help me find out if the economics course has any guest speakers scheduled?,2
+Looking for syllabus for econ course,2
+More info on engineering program?,2
+Biology course available for non-majors?,2
+When is psychology course offered?,2
+Tell me about intro to sociology course,2
+Prerequisites for chem course?,2
+What is creative writing course about?,2
+Physics course online format available?,2
+Discussion sections for philosophy course?,2
+Any guest speakers for history course?,2
+I'm looking for the opening hours of the university library on weekdays.,3
+Can you tell me when the student services center closes on Fridays?,3
+I need to know the hours of the university gym during the summer break.,3
+Could you give me the opening hours for the IT help desk on weekends?,3
+I'm trying to find out the opening hours for the university health center on holidays.,3
+Can you tell me the closing time of the administration office on Thursdays?,3
+What are the opening hours for the university career center on Saturdays?,3
+I need to know when the registrar's office opens on Mondays.,3
+Could you tell me the opening hours of the university bookstore during exam week?,3
+I'm looking for the closing time of the financial aid office on Wednesdays.,3
+Library hours weekdays?,3
+Student services center Friday hours?,3
+Gym hours during summer break?,3
+IT help desk weekend hours?,3
+Health center hours on holidays?,3
+Administration office closing time on Thursdays?,3
+Career center Saturday hours?,3
+Registrar's office Monday opening time?,3
+University bookstore exam week hours?,3
+Financial aid office Wednesday closing time?,3
+I'm looking for information about the admission requirements for the Computer Science department,4
+Can you give me more information about the research opportunities in the Psychology department?,4
+I need to know about the course offerings for the Philosophy department this semester.,4
+Could you tell me more about the faculty members in the Biology department?,4
+I'm trying to find out about the internship opportunities available in the Marketing department.,4
+Can you give me more information about the study abroad options for the Political Science department?,4
+What kind of career services are available for students in the Engineering department?,4
+I need to know about the accreditation status of the Accounting department.,4
+Could you tell me more about the financial aid options for students in the Music department?,4
+I'm looking for information about the student clubs and organizations affiliated with the Art department.,4
+CS admission requirements?,4
+Psych research opportunities?,4
+Philosophy course offerings?,4
+Bio faculty members?,4
+Marketing internship opportunities?,4
+Poli Sci study abroad?,4
+Engineering career services?,4
+Accounting accreditation?,4
+Music financial aid options?,4
+Art student clubs?,4
+"I'm interested in the undergraduate programs offered by Campus del Mar. Can you give me more information?""",5
+Can you tell me about the faculty members in the History department at Campus de la Ciutadella?,5
+I need to know more about the research opportunities in the Computer Science department at Campus de Poblenou.,5
+Could you give me more information about the course requirements for the Law program at Campus del Mar?,5
+I'm trying to find out about the scholarship opportunities available for the Business program at Campus de la Ciutadella.,5
+Can you tell me about the facilities available for the Psychology program at Campus de Poblenou?,5
+What kind of extracurricular activities are available for students in the Economics program at Campus del Mar?,5
+I need to know about the graduate programs offered at Campus de la Ciutadella.,5
+Could you tell me more about the faculty exchange program for the Linguistics department at Campus de Poblenou?,5
+I'm interested in the academic calendar for the upcoming semester at all three faculties.,5
+Campus del Mar undergrad programs?,5
+Ciutadella History faculty?,5
+Poblenou CS research opportunities?,5
+Campus del Mar Law course requirements?,5
+Ciutadella Business scholarship opportunities?,5
+Poblenou Psychology facilities?,5
+Campus del Mar Econ extracurriculars?,5
+Ciutadella graduate programs?,5
+Poblenou Linguistics faculty exchange?,5
+Academic calendar for all faculties?,5
+I'm looking for the time schedule of the Introduction to Economics course. Can you help me with that?,6
+Do you know what days and times the Advanced Spanish Grammar course is offered?,6
+Can you give me the time schedule for the Ethics in Business course for the upcoming semester?,6
+I need to know the days and times for the Computer Networks course. Can you help me with that?,6
+Can you give me the time schedule for the Data Analysis course in the Mathematics department?,6
+"What is the time schedule for the Artificial Intelligence course?""",6
+"I need to know when the Introduction to Philosophy course is offered. Can you help me with that?""",6
+Do you have the time schedule for the English Literature course for next semester?,6
+Can you give me the days and times for the International Relations course?,6
+What is the time schedule for the History of Art course?,6
+Econ 101 time schedule?,6
+Advanced Spanish Grammar days and times?,6
+Ethics in Business time schedule?,6
+Computer Networks days and times?,6
+Data Analysis time schedule?,6
+AI course time?,6
+Introduction to Philosophy schedule?,6
+English Lit time schedule?,6
+International Relations days and times?,6

@@ -14,15 +14,21 @@ The generic model accuracy is 98.5%
 
 4s 387ms/step - loss: 0.0230 - acc: 0.9967 - val_loss: 0.0567 - val_acc: 0.9851
 train time: 2m
-The domain model accuracy is 96.4%
+[("I'm trying to schedule my classes for next semester. Can you give me the meeting times for the courses I'm interested in?", {'intent': 3, 'prob': 0.73899275}, 6), ('Can you tell me the meeting times for the Spanish Language course?', {'intent': 3, 'prob': 0.6047553}, 6)]The domain model accuracy is 99.0%
+
+The relation model accuracy is 90.7%
+[('John.', {'intent': 'make_call', 'prob': 0.968852}, '1'), ('Dr. Jones.', {'intent': 'make_call', 'prob': 0.985357}, '1'), ("I'm looking for information about the psychology course that's taught by Professor Johnson. Do you know anything about it?", {'intent': '1', 'prob': 0.7203597}, '2'), ('Looking for syllabus for econ course', {'intent': 'oos', 'prob': 0.31746012}, '2'), ("I'm looking for the closing time of the financial aid office on Wednesdays.", {'intent': 'oos', 'prob': 0.9995509}, '3'), ('What kind of career services are available for students in the Engineering department?', {'intent': 'oos', 'prob': 0.5962671}, '4'), ('Do you know what days and times the Advanced Spanish Grammar course is offered?', {'intent': 'upf', 'prob': 0.4847241}, '6'), ('Can you give me the time schedule for the Data Analysis course in the Mathematics department?', {'intent': '2', 'prob': 0.33033442}, '6'), ('What is the time schedule for the Artificial Intelligence course?"', {'intent': 'upf', 'prob': 0.98408544}, '6'), ('I need to know when the Introduction to Philosophy course is offered. Can you help me with that?"', {'intent': '2', 'prob': 0.5786457}, '6'), ('Can you give me the days and times for the International Relations course?', {'intent': 'upf', 'prob': 0.90849376}, '6'), ('Advanced Spanish Grammar days and times?', {'intent': 'oos', 'prob': 0.7340758}, '6')]
+
 '''
 
 
 class IntentClassificationModel:
-    def __init__(self, embedder_train_data_path, domain_dataset_path):
+    def __init__(self, generic_dataset_path, embedder_train_data_path, domain_dataset_path, intent_relation_dataset_path):
 
+        self.generic_dataset_path = generic_dataset_path
         self.embedder_train_data_path = embedder_train_data_path
         self.domain_dataset_path = domain_dataset_path
+        self.intent_relation_dataset_path = intent_relation_dataset_path
 
         self.model = None
 
@@ -34,9 +40,9 @@ class IntentClassificationModel:
         self.embedding_matrix = None
 
     # **** TRAIN ****#S
-    def load_data_generic(self, generic_dataset_path):
+    def load_data_generic(self):
         # Loading json data
-        with open(generic_dataset_path) as file:
+        with open(self.generic_dataset_path) as file:
             data = json.loads(file.read())
 
         # out-of-scope intent data
@@ -74,6 +80,20 @@ class IntentClassificationModel:
             df["label"] = "upf"
         texts = df["sentence"].to_numpy()
         labels = df["label"].to_numpy()
+
+        self.intents = np.unique(labels)
+
+        return texts, labels
+
+    def load_data_intent_relation(self):
+        df = pd.read_csv(self.intent_relation_dataset_path)
+        texts = df["sentence"].to_numpy()
+        labels = df["label"].to_numpy(dtype="str")
+
+        generic_texts, generic_labels = self.load_data_generic()
+
+        texts = np.concatenate([texts,generic_texts])
+        labels = np.concatenate([labels, generic_labels])
 
         self.intents = np.unique(labels)
 
@@ -221,16 +241,19 @@ class IntentClassificationModel:
         test_keras_sequence = keras.preprocessing.sequence.pad_sequences(test_keras, maxlen=input_size,
                                                                          padding='post')
         pred = self.model.predict(test_keras_sequence)
-        return {"intent":self.label_encoder.inverse_transform(np.argmax(pred, 1))[0],"prob":np.max(pred)}
+        return {"intent": self.label_encoder.inverse_transform(np.argmax(pred, 1))[0], "prob": np.max(pred)}
 
 
-# **** BUILD EXAMPLE (GENERIC)****#
 generic_dataset_path = "./datasets/data_full.json"
 embedder_train_dataset_path = "./datasets/glove.6B.100d.txt"
 domain_dataset_path = "./datasets/train_set.csv"
-intentClassModel = IntentClassificationModel(embedder_train_dataset_path, domain_dataset_path)
-text,labels = intentClassModel.load_data_generic(generic_dataset_path)
-label_encoder_output="./utils/generic_label_encoder.pkl"
+intent_relation_dataset_path = "./datasets/intent_relation.csv"
+intentClassModel = IntentClassificationModel(generic_dataset_path,embedder_train_dataset_path, domain_dataset_path,intent_relation_dataset_path)
+
+'''
+# **** BUILD EXAMPLE (GENERIC)****#
+text, labels = intentClassModel.load_data_generic()
+label_encoder_output = "./utils/generic_label_encoder.pkl"
 tokenizer_output = "./utils/generic_tokenizer.pkl"
 model_output = "./models/generic_intent_classifier.h5"
 accuracy_output = "./plots/generic_accuracy.png"
@@ -239,8 +262,8 @@ intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, toke
                                         loss_output, model_output)
 
 # **** BUILD EXAMPLE (DOMAIN) ****#
-text,labels = intentClassModel.load_data_domain(replace_original_labels=False)
-label_encoder_output="./utils/domain_label_encoder.pkl"
+text, labels = intentClassModel.load_data_domain(replace_original_labels=False)
+label_encoder_output = "./utils/domain_label_encoder.pkl"
 tokenizer_output = "./utils/domain_tokenizer.pkl"
 model_output = "./models/domain_intent_classifier.h5"
 accuracy_output = "./plots/domain_accuracy.png"
@@ -248,40 +271,51 @@ loss_output = "./plots/domain_loss.png"
 intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
                                         loss_output, model_output)
 
+# **** BUILD EXAMPLE (INTENT RELATION) ****#
+text, labels = intentClassModel.load_data_intent_relation()
+label_encoder_output = "./utils/relation_label_encoder.pkl"
+tokenizer_output = "./utils/relation_tokenizer.pkl"
+model_output = "./models/relation_intent_classifier.h5"
+accuracy_output = "./plots/relation_accuracy.png"
+loss_output = "./plots/relation_loss.png"
+intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
+                                        loss_output, model_output)
+'''
 # **** PREDICT EXAMPLE ****#
-generic_dataset_path = "./datasets/data_full.json"
-embedder_train_dataset_path = "./datasets/glove.6B.100d.txt"
-domain_dataset_path = "./datasets/train_set.csv"
-intentClassModel = IntentClassificationModel(embedder_train_dataset_path,domain_dataset_path)
+intentClassModel = IntentClassificationModel(generic_dataset_path,embedder_train_dataset_path, domain_dataset_path,intent_relation_dataset_path)
 intentClassModel.load_model(model_file="./models/generic_intent_classifier.h5")
 intentClassModel.load_tokenizer(tokenizer_file="./utils/generic_tokenizer.pkl")
 intentClassModel.load_label_encoder(label_encoder_file="./utils/generic_label_encoder.pkl")
 print(intentClassModel.get_intent("What's the current weather in the upf?"))
 
-def validate_model(type):
-    embedder_train_dataset_path = "./datasets/glove.6B.100d.txt"
-    domain_dataset_path = "datasets/train_set.csv"
-    intentClassModel = IntentClassificationModel(embedder_train_dataset_path, domain_dataset_path)
+
+def validate_model(intentClassModel,type):
 
     intentClassModel.load_model(model_file="./models/" + type + "_intent_classifier.h5")
     intentClassModel.load_tokenizer(tokenizer_file="./utils/" + type + "_tokenizer.pkl")
     intentClassModel.load_label_encoder(label_encoder_file="./utils/" + type + "_label_encoder.pkl")
     if type == "domain":
-        replace_original_labels = False
+        texts, labels = intentClassModel.load_data_domain(replace_original_labels=False)
+    elif type == "generic":
+        texts, labels = intentClassModel.load_data_generic()
     else:
-        replace_original_labels = True
-    texts, labels = intentClassModel.load_data_domain(replace_original_labels=replace_original_labels)
+        df = pd.read_csv(intentClassModel.intent_relation_dataset_path)
+        texts = df["sentence"].to_numpy()
+        labels = df["label"].to_numpy(dtype="str")
 
     score = 0
+    errors = []
     for i, text in enumerate(texts):
         intent = intentClassModel.get_intent(text)
-        if intent == labels[i]:
+        if intent['intent'] == labels[i]:
             score += 1
-            print(intent,labels[i])
         else:
-            print(text, intent, labels[i])
-    print("The " + type + " model accuracy is "+'{:.1%}'.format(score / len(texts)))
+            errors.append((text, intent, labels[i]))
+    print("The " + type + " model accuracy is " + '{:.1%}'.format(score / len(texts)))
+    print(errors)
 
 
-validate_model("generic")
-validate_model("domain")
+#validate_model(intentClassModel,"generic")
+validate_model(intentClassModel,"domain")
+print("#############################")
+validate_model(intentClassModel,"relation")
