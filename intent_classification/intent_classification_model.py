@@ -201,6 +201,8 @@ class IntentClassificationModel:
         plt.legend(['Train', 'Validation'], loc='upper left')
         plt.savefig(loss_out_file)
 
+        plt.clf()
+
         self.model.save(model_out_file)
 
     def execute_train_pipeline(self, text, labels, label_encoder_output, tokenizer_output, accuracy_output, loss_output,
@@ -260,7 +262,7 @@ accuracy_output = "./plots/generic_accuracy.png"
 loss_output = "./plots/generic_loss.png"
 intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
                                         loss_output, model_output)
-
+'''
 # **** BUILD EXAMPLE (DOMAIN) ****#
 text, labels = intentClassModel.load_data_domain(replace_original_labels=False)
 label_encoder_output = "./utils/domain_label_encoder.pkl"
@@ -270,7 +272,7 @@ accuracy_output = "./plots/domain_accuracy.png"
 loss_output = "./plots/domain_loss.png"
 intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
                                         loss_output, model_output)
-
+'''
 # **** BUILD EXAMPLE (INTENT RELATION) ****#
 text, labels = intentClassModel.load_data_intent_relation()
 label_encoder_output = "./utils/relation_label_encoder.pkl"
@@ -280,7 +282,7 @@ accuracy_output = "./plots/relation_accuracy.png"
 loss_output = "./plots/relation_loss.png"
 intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
                                         loss_output, model_output)
-'''
+
 # **** PREDICT EXAMPLE ****#
 intentClassModel = IntentClassificationModel(generic_dataset_path,embedder_train_dataset_path, domain_dataset_path,intent_relation_dataset_path)
 intentClassModel.load_model(model_file="./models/generic_intent_classifier.h5")
@@ -288,7 +290,7 @@ intentClassModel.load_tokenizer(tokenizer_file="./utils/generic_tokenizer.pkl")
 intentClassModel.load_label_encoder(label_encoder_file="./utils/generic_label_encoder.pkl")
 print(intentClassModel.get_intent("What's the current weather in the upf?"))
 
-
+'''
 def validate_model(intentClassModel,type):
 
     intentClassModel.load_model(model_file="./models/" + type + "_intent_classifier.h5")
@@ -297,7 +299,7 @@ def validate_model(intentClassModel,type):
     if type == "domain":
         texts, labels = intentClassModel.load_data_domain(replace_original_labels=False)
     elif type == "generic":
-        texts, labels = intentClassModel.load_data_generic()
+        texts, labels = intentClassModel.load_data_domain(replace_original_labels=True)
     else:
         df = pd.read_csv(intentClassModel.intent_relation_dataset_path)
         texts = df["sentence"].to_numpy()
@@ -315,7 +317,7 @@ def validate_model(intentClassModel,type):
     print(errors)
 
 
-#validate_model(intentClassModel,"generic")
+validate_model(intentClassModel,"generic")
 validate_model(intentClassModel,"domain")
 print("#############################")
-validate_model(intentClassModel,"relation")
+#validate_model(intentClassModel,"relation")
