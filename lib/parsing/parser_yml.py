@@ -9,7 +9,7 @@ class ParserYML(Parser):
         super().__init__(data)
 
     def parse(self, filename):
-        with open(filename, 'r') as stream:
+        with open(filename, 'r', encoding='utf8') as stream:
             self.data = yaml.safe_load(stream)
         return self.data
 
