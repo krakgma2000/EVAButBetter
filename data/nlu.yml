@@ -1,5 +1,42 @@
 version: "3.1"
 nlu:
+- lookup: ORG
+  examples: |
+    - UGA TIC- Recruitment  Docorate and International ETIC Coordinator
+    - AIandML: Artificial Intelligence and Machine Learning group
+    - BERG Biomedical Electronics Research Group
+    - CMTECH: Cognitive Media Technologies Group
+    - CMTECH: Cognitive Media Technologies Group /MTG: Music Technology Group
+    - Computational Neuroscience
+    - IP4EC Image processing for enhanced cinematography
+    - IPG: Image Processing Group
+    - IPG: Image Processing Group /MTG: Music Technology Group
+    - IPG: Image Processing Group/ MTG: Music Technology Group
+    - ITC: Information Theory and Coding Group
+    - ITG: Interactive Technologies Group
+    - MTG: Music Technology Group
+    - MTG: Music Technology Group / PHONOS
+    - Natural Language Processing
+    - NETS Network Technologies and Strategies Group
+    - NTSA: Nonlinear Time Series Analysis Group
+    - Physense: Sensing in Physiology and Biomedicine Group
+    - Research Service 
+    - SIMBIOsys: Simulation Imaging and Modelling for Biomedical Systems
+    - TALN; Natural Language Processing
+    - TALN: Natural Language Processing
+    - TIDE: Interactive and Distributed Technologies for Education
+    - UBICALAB: Ubiquitous Computing Applications Lab
+    - UGA TIC - Pedagogue in USQUID
+    - UGA TIC Head of the Management and Administration  Unit
+    - UGA TIC- Polytechnic School
+    - UGA TIC- Polytechnic School Coordinator 
+    - UGA TIC- Recruitment  Docorate and International ETIC
+    - UGA TIC- Recruitment  Docorate and International ETIC Coordinator 
+    - UGA TIC- Recruitment  Doctorate and International ETIC
+    - UGA TIC: Research Promotion and Activities
+    - UGA TIC: Research Promotion and Activities Coordinator
+    - WN: Wireless Networking Group
+    - WSSC: Web Science and Social Computing
 - intent: greet
   examples: |
     - hey
@@ -86,13 +123,26 @@ nlu:
     - How many faculty members are in the [TALN: Natural Language Processing](ORG)
     - Could you give me the number of professors in [SIMBIOsys: Simulation Imaging and Modelling for Biomedical Systems](ORG)
     - Can you let me know the headcount for the [UGA TIC - Pedagogue in USQUID](ORG)
-    - Can you give me information about the faculty in the [UGA TIC- Recruitment  Docorate & International ETIC](ORG), including the number of members
-    - I was wondering if you could tell me the number of professors in the [UGA TIC- Recruitment  Doctorate & International ETIC](ORG)
-    - Could you provide information about the size of the faculty in the [UGA TIC: Research Promotion & Activities](ORG)
+    - Can you give me information about the faculty in the [UGA TIC- Recruitment  Docorate and International ETIC](ORG), including the number of members
+    - I was wondering if you could tell me the number of professors in the [UGA TIC- Recruitment  Doctorate and International ETIC](ORG)
+    - Could you provide information about the size of the faculty in the [UGA TIC: Research Promotion and Activities](ORG)
     - Can you give me an idea of the number of professors in [WN: Wireless Networking Group](ORG)
-    - How many individuals teach in the [AI&ML: Artificial Intelligence and Machine Learning group](ORG)
+    - How many individuals teach in the [AIandML: Artificial Intelligence and Machine Learning group](ORG)
     - Can you give me information about the [,BERG Biomedical Electronics Research Group](ORG). including the headcount for the faculty
     - Could you let me know the number of faculty members in the [MTG: Music Technology Group](ORG)
+    - How many faculty members are in the [NAME] department?
+    - Could you give me the number of professors in [NAME]?
+    - Can you let me know the headcount for the [NAME] department's faculty?
+    - Can you give me information about the faculty in the [NAME] department, including the number of members?
+    - I was wondering if you could tell me the number of professors in the [NAME] department.
+    - Could you provide information about the size of the faculty in the [NAME] department?
+    - Can you give me an idea of the number of professors in [NAME]?
+    - How many individuals teach in the [NAME] department?
+    - Can you give me information about the [NAME] department, including the headcount for the faculty?
+    - Could you let me know the number of faculty members in the [NAME] department?
+    - I was curious about the number of professors in [NAME].
+    - Can you give me the headcount for the [NAME] department's faculty?
+    - Could you tell me the size of the faculty in the [NAME] department?
 - intent: faculty_info
   examples: |
     - How many instructors are employed at UPF

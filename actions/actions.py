@@ -16,6 +16,8 @@ from rasa_sdk.events import AllSlotsReset, UserUttered, SlotSet, ActionExecuted,
 import pandas as pd;
 import Levenshtein as lv;
 # from TTS.api import TTS
+from google.cloud import texttospeech
+from playsound import playsound
 
 
 df = pd.read_csv("./data/listado.csv")
@@ -27,23 +29,8 @@ def findFromCsv(tracker, slot_name, look_for):
     min_distance = 999
     isFind = True
     slot_value = tracker.get_slot(slot_name).lower()
-    # try:
-    #     df["isIncluded"] = df[look_for].str.lower().str.find(slot_value) 
-    #     res = df.loc[df["isIncluded"] != -1]
-    #     print(res)
-    #     return res
-    # except:
-    #     for index, ele in df[look_for].iterrows():
-    #         distance = lv.distance(ele, slot_value)
-    #         if distance == 0:
-    #             return ele
-    #         if distance < min_distance:
-    #             min_distance = distance
-    #             ind = index
-    #     return df[ind]
     df["isIncluded"] = df[look_for].str.lower().str.find(slot_value) 
     res = df.loc[df["isIncluded"] != -1]
-    # print(res.empty)
     if res.empty:
         isFind = False
         for index, ele in df.iterrows():
@@ -51,16 +38,42 @@ def findFromCsv(tracker, slot_name, look_for):
             name_array = ele[look_for].lower().split(" ")
             for name in name_array:
                 distance += lv.distance(name, slot_value)
-                # if distance == 0:
-                #     return ele
             if distance < min_distance:
                 min_distance = distance
-                # ind = index
                 res = ele
-        # print(ind)
-        # return df.irow(ind)
-    # print(res['NOMBRE'])
     return res, isFind
+
+def textTospeech(text):
+    # Instantiates a client
+    client = texttospeech.TextToSpeechClient()
+
+    # Set the text input to be synthesized
+    synthesis_input = texttospeech.SynthesisInput(text=text)
+
+    # Build the voice request, select the language code ("en-US") and the ssml
+    # voice gender ("neutral")
+    voice = texttospeech.VoiceSelectionParams(
+        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+    )
+
+    # Select the type of audio file you want returned
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3
+    )
+
+    # Perform the text-to-speech request on the text input with the selected
+    # voice parameters and audio file type
+    response = client.synthesize_speech(
+        input=synthesis_input, voice=voice, audio_config=audio_config
+    )
+
+    # The response's audio_content is binary.
+    with open("output.mp3", "wb") as out:
+        # Write the response to the output file.
+        out.write(response.audio_content)
+        print('Audio content written to file "output.mp3"')
+
+    playsound("output.mp3")
 
 class ActionProfessorInfo(Action):
 
@@ -78,8 +91,10 @@ class ActionProfessorInfo(Action):
             msg = "Can't find the professor given the name, the professor who has the most similar name is " + res["NOMBRE"] + " in " + res["GRUPO"] + " and the office room is "  + res["DESPACHO"]
         print(tracker.slots)
         dispatcher.utter_message(text=msg)
+        textTospeech(msg)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
+        
         return []
 
 class ActionDepartmentInfo(Action):
@@ -96,13 +111,14 @@ class ActionDepartmentInfo(Action):
         if isFind:
             msg = "There are  " + str(res.shape[0])  + " professors in " + res["GRUPO"].values[0]
         else:
-            msg = "Can't find the grupo given the name, the most similar grupo  is " + res["GROUPO"] + " there are " + str(res.shape[0]) + " professors in the grupo" 
+            msg = "Can't find the grupo given the name, the most similar grupo is " + res["GRUPO"] + " there are " + str(res.shape[0]) + " professors in the grupo" 
         print(tracker.slots)
         dispatcher.utter_message(text=msg)
         # print(tracker.slots)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
         # tts.tts_to_file(text = "hello world", speaker=tts.speakers[0], language=tts.languages[0], file_path = "output.wav")
         return []
+        
 class ActionFacultyInfo(Action):
 
     def name(self) -> Text:
@@ -112,7 +128,7 @@ class ActionFacultyInfo(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        msg = "There are 24 departments and 231 professors in UPF, for more information, please provide more details about the question."
+        msg = "There are 34 departments and 230 professors in UPF, for more information, please provide more details about the question."
         dispatcher.utter_message(text=msg)
         # print(tracker.slots)
         # wav = tts.tts("hello world", speaker=tts.speakers[0], language=tts.languages[0])
