@@ -1,12 +1,20 @@
 import json
-import importlib
+import importlib, inspect
 
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+
+from actions.action import Action
 
 class IntentToAction:
     def __init__(self, actions_db_dir):
         self.actions_db_dir = actions_db_dir
         self.db = None
         self.loadDB()
+        self.load_t5()
+
+    def load_t5(self):
+        self.tokenizer = T5Tokenizer.from_pretrained('t5-base')
+        self.t5 = T5ForConditionalGeneration.from_pretrained('t5-base')
 
     def loadDB(self):
         db = json.load(open(self.actions_db_dir))
@@ -18,27 +26,23 @@ class IntentToAction:
         return action_obj
 
     def run_action(self, action_obj,retry=0):
+
         module_name = "actions." + action_obj["action"]  # the name of the module to import
         module = importlib.import_module(module_name)  # import the module
 
         # Get a list of all the attributes defined in the module
-        module_attributes = dir(module)
+        module_attributes = inspect.getmembers(module, inspect.isclass)
 
-        # Find the name of the class in the module
-        class_name = module_attributes[-9-retry]
-
-        if class_name is not None:
-            class_ = getattr(module, class_name)
-            try:
-                instance = class_()
-            except:
-                self.run_action(action_obj,retry=retry+1)
-                return
-            result = instance.run(action_obj)
-            print("Action Result: " + result)
-            return result
-        else:
-            print("No class found in module")
+        for name, cls in module_attributes:
+            if cls.__module__ == module_name:
+                if name in ["OOV","UnavailableService"]:
+                    instance = cls(tokenizer=self.tokenizer,t5=self.t5)
+                else:
+                    instance = cls()
+                result = instance.run(action_obj)
+                print("Action Result: " + result)
+                return result
+        print("No class found in module")
 
 
 
@@ -49,6 +53,8 @@ class IntentToAction:
     def test(self):
         for intent in self.db.keys():
             print("Intent: " + intent + ":\n")
+            if intent == "schedule_meeting":
+                print("stop")
             self.run_action_by_intent(intent)
             print("\n************************\n\n")
 
