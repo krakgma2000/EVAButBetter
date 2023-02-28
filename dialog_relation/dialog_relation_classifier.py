@@ -4,13 +4,14 @@ from nltk import word_tokenize
 from nltk import pos_tag
 from nltk import ne_chunk
 from nltk.classify.naivebayes import NaiveBayesClassifier
+import pandas as pd
+import random
 
 nltk.download('switchboard')
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('maxent_ne_chunker')
 nltk.download('words')
-import random
 
 
 class DialogRelationClassifier:
@@ -22,17 +23,34 @@ class DialogRelationClassifier:
         self.switchboard_corpus = None
         self.classifier = None
 
-    def load_data(self):
+    def load_data_1(self):
         # Load the Switchboard corpus
         self.switchboard_reader = switchboard.SwitchboardCorpusReader(
             "C://Users//gmorenoa//AppData//roaming//nltk_data//corpora//switchboard")
         self.turns = list(self.switchboard_reader.turns())
         print("We have %d turns" % len(self.turns))
 
+        self.load_train_set_1()
+
+    def load_data_2(self):
+        self.train_df = pd.read_csv(
+            "ubuntu-ranking-dataset-creator-master/ubuntu-ranking-dataset-creator-master/src/train.csv").reset_index()
+        self.train_data = []
+        for index, row in self.train_df.iterrows():
+            turns = row["Utterance"].split("__eou__")
+            self.train_data.append((turns[0], turns[1], row["Label"]))
+
+        self.test_df = pd.read_csv(
+            "ubuntu-ranking-dataset-creator-master/ubuntu-ranking-dataset-creator-master/src/test.csv").reset_index()
+        self.test_data = []
+        for index, row in self.train_df.iterrows():
+            turns = row["Utterance"].split("__eou__")
+            self.test_data.append((turns[0], turns[1], row["Label"]))
+
     def are_related(self, id1, speaker1, id2, speaker2):
         return speaker1 != speaker2 and id1 == id2 - 1
 
-    def load_train_set(self):
+    def load_train_set_1(self):
         data = []
 
         # Get the dialogue turns in the conversation
@@ -130,12 +148,12 @@ class DialogRelationClassifier:
             # Predict whether the new turns are related or unrelated to each other
             prediction = self.classifier.classify(featureset=test_sample[0])
             if prediction == test_sample[1]:
-                accuracy+=1
+                accuracy += 1
 
-        print("Accuracy", accuracy/len(self.test_features_labels))
+        print("Accuracy", accuracy / len(self.test_features_labels))
+
 
 dialog_classifier = DialogRelationClassifier()
-dialog_classifier.load_data()
-dialog_classifier.load_train_set()
+dialog_classifier.load_data_2()
 dialog_classifier.train()
 dialog_classifier.test()
