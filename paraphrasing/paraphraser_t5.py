@@ -2,26 +2,22 @@ from paraphrasing.paraphraser import Paraphraser
 from transformers import T5TokenizerFast, T5ForConditionalGeneration
 import warnings
 import torch
+
 warnings.filterwarnings("ignore")
 
-TOKENIZER = T5TokenizerFast.from_pretrained(
-    "igorktech/t5-en-paraphrasing-last3")  # "ceshine/t5-paraphrase-paws-msrp-opinosis" #"prithivida/parrot_paraphraser_on_T5"
-MODEL = T5ForConditionalGeneration.from_pretrained("igorktech/t5-en-paraphrasing-last3")
-
+# "ceshine/t5-paraphrase-paws-msrp-opinosis" #"prithivida/parrot_paraphraser_on_T5"
+MODEL_NAME = "igorktech/ent5-base-paraphraser"
 TASK_PREFIX = 'paraphrase | '
 
 
 class T5Model():
-    def __init__(self, model=MODEL, tokenizer=TOKENIZER):
-        self.model = model
-        self.tokenizer = tokenizer
-
-
-T5_MODEL = T5Model()
+    def __init__(self, model_name="igorktech/ent5-base-paraphraser"):
+        self.model = T5ForConditionalGeneration.from_pretrained(model_name)
+        self.tokenizer = T5TokenizerFast.from_pretrained(model_name)
 
 
 class ParaphrasetT5(Paraphraser):
-    def __init__(self, model=T5_MODEL, task_prefix=TASK_PREFIX):
+    def __init__(self, model=T5Model(MODEL_NAME), task_prefix=TASK_PREFIX):
         super().__init__(model)
         self.task_prefix = task_prefix
 
@@ -30,7 +26,7 @@ class ParaphrasetT5(Paraphraser):
             device = "cuda:0"
         else:
             device = "cpu"
-        self.model.model = self.model.model.to(device)  # self.model.model.to(device)
+        self.model.model = self.model.model.to(device)
         self.model.model.eval()
         if isinstance(sentences, list):
             response_list = []

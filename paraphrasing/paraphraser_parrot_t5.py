@@ -15,7 +15,7 @@ def random_state(seed):
 random_state(1234)
 '''
 
-MODEL_NAME = "igorktech/t5-en-paraphrasing-last3"  # "ceshine/t5-paraphrase-paws-msrp-opinosis"#"prithivida/parrot_paraphraser_on_T5"
+MODEL_NAME = "igorktech/ent5-base-paraphraser"  # "ceshine/t5-paraphrase-paws-msrp-opinosis"#"prithivida/parrot_paraphraser_on_T5"
 
 
 class ParaphraserParrot(Paraphraser):
