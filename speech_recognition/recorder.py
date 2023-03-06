@@ -56,7 +56,7 @@ class Recorder:
 
             current = time.time()
             rec.append(data)
-        self.write(b''.join(rec))
+        return self.write(b''.join(rec))
 
     def write(self, recording):
         n_files = len(os.listdir(RECORD_DIR))
@@ -70,17 +70,11 @@ class Recorder:
         wf.writeframes(recording)
         wf.close()
         print('Written to file: {}'.format(filename))
-        print('Returning to listening')
+        return filename
 
     def listen(self):
-        print('Listening beginning')
-        while True:
-            input = self.stream.read(CHUNK)
-            rms_val = self.rms(input)
-            if rms_val > THRESHOLD:
-                self.record()
-
-
-a = Recorder()
-
-a.listen()
+        print('Listening...')
+        input = self.stream.read(CHUNK)
+        rms_val = self.rms(input)
+        if rms_val > THRESHOLD:
+            return self.record()

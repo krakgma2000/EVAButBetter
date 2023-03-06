@@ -68,7 +68,7 @@ class IntentClassificationModel:
 
         return text, labels
 
-    def load_data_domain(self, replace_original_labels=True):
+    def load_data_domain(self, replace_original_labels=False):
         df = pd.read_csv(self.domain_dataset_path)
         if replace_original_labels:
             df["label"] = "upf"
@@ -213,6 +213,31 @@ class IntentClassificationModel:
         with open(label_encoder_file, 'rb') as file:
             self.label_encoder = pickle.load(file)
 
+    def validate_generic_model(self, generic_dataset_path):
+        self.load_model(model_file="./intent_classification/models/generic_intent_classifier.h5")
+        self.load_tokenizer(tokenizer_file="./intent_classification/utils/generic_tokenizer.pkl")
+        self.load_label_encoder(label_encoder_file="./intent_classification/utils/generic_label_encoder.pkl")
+        texts, labels = self.load_data_generic(generic_dataset_path)
+        _, texts, _, labels = train_test_split(texts, labels, test_size=0.1)
+        upf_score = 0
+        others_score = 0
+        total_upf = 0
+        total_others = 0
+        for i, text in enumerate(texts[:1000]):
+            intent_obj = self.get_intent(text)
+            intent = intent_obj["intent"]
+            if labels[i] == "upf":
+                total_upf += 1
+                if intent == "upf":
+                    upf_score += 1
+            else:
+                total_others += 1
+                if intent != "upf":
+                    others_score += 1
+
+        print("The generic model predicts upf intents with a " + '{:.1%}'.format(upf_score / total_upf))
+        print("The generic model predicts non-upf intents with a " + '{:.1%}'.format(others_score / total_others))
+
     def get_intent(self, text):
 
         text = [text]
@@ -221,64 +246,7 @@ class IntentClassificationModel:
         test_keras_sequence = keras.preprocessing.sequence.pad_sequences(test_keras, maxlen=input_size,
                                                                          padding='post')
         pred = self.model.predict(test_keras_sequence)
-        return self.label_encoder.inverse_transform(np.argmax(pred, 1))[0]
 
+        intent_object = {"intent":str(self.label_encoder.inverse_transform(np.argmax(pred, 1))[0]), "prob":np.argmax(pred, 1)}
 
-# **** BUILD EXAMPLE (GENERIC)****#
-generic_dataset_path = "./datasets/data_full.json"
-embedder_train_dataset_path = "./datasets/glove.6B.100d.txt"
-domain_dataset_path = "./datasets/train_set.csv"
-intentClassModel = IntentClassificationModel(embedder_train_dataset_path, domain_dataset_path)
-text,labels = intentClassModel.load_data_generic(generic_dataset_path)
-label_encoder_output="./utils/generic_label_encoder.pkl"
-tokenizer_output = "./utils/generic_tokenizer.pkl"
-model_output = "./models/generic_intent_classifier.h5"
-accuracy_output = "./plots/generic_accuracy.png"
-loss_output = "./plots/generic_loss.png"
-intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
-                                        loss_output, model_output)
-
-# **** BUILD EXAMPLE (DOMAIN) ****#
-text,labels = intentClassModel.load_data_domain(replace_original_labels=False)
-label_encoder_output="./utils/domain_label_encoder.pkl"
-tokenizer_output = "./utils/domain_tokenizer.pkl"
-model_output = "./models/domain_intent_classifier.h5"
-accuracy_output = "./plots/domain_accuracy.png"
-loss_output = "./plots/domain_loss.png"
-intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
-                                        loss_output, model_output)
-
-# **** PREDICT EXAMPLE ****#
-intentClassModel = IntentClassificationModel(embedder_train_dataset_path,domain_dataset_path)
-intentClassModel.load_model(model_file="./models/generic_intent_classifier.h5")
-intentClassModel.load_tokenizer(tokenizer_file="./utils/generic_tokenizer.pkl")
-intentClassModel.load_label_encoder(label_encoder_file="./utils/generic_label_encoder.pkl")
-print(intentClassModel.get_intent("Thank you"))
-
-def validate_model(type):
-    embedder_train_dataset_path = "./datasets/glove.6B.100d.txt"
-    domain_dataset_path = "./datasets/validation_set.csv"
-    intentClassModel = IntentClassificationModel(embedder_train_dataset_path, domain_dataset_path)
-
-    intentClassModel.load_model(model_file="./models/" + type + "_intent_classifier.h5")
-    intentClassModel.load_tokenizer(tokenizer_file="./utils/" + type + "_tokenizer.pkl")
-    intentClassModel.load_label_encoder(label_encoder_file="./utils/" + type + "_label_encoder.pkl")
-    if type == "domain":
-        replace_original_labels = False
-    else:
-        replace_original_labels = True
-    texts, labels = intentClassModel.load_data_domain(replace_original_labels=replace_original_labels)
-
-    score = 0
-    for i, text in enumerate(texts):
-        intent = intentClassModel.get_intent(text)
-        if intent == labels[i]:
-            score += 1
-            print(intent,labels[i])
-        else:
-            print(text, intent, labels[i])
-    print("The " + type + " model accuracy is "+'{:.1%}'.format(score / len(texts)))
-
-
-validate_model("generic")
-validate_model("domain")
+        return intent_object

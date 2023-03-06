@@ -4,27 +4,12 @@ from .action import Action
 
 
 class UnavailableService(Action):
-    def __init__(self,tokenizer,t5):
+    def __init__(self):
         self.apologies = Apologies()
         self.introduction = Introduction()
-        self.tokenizer = tokenizer
-        self.t5 = t5
 
     def concatenate_strings(self, strings):
-        # Load T5 tokenizer and model
-        # tokenizer = T5Tokenizer.from_pretrained('t5-base')
-        # model = T5ForConditionalGeneration.from_pretrained('t5-base')
-
-        # Tokenize the strings and join them with separator tokens
-        inputs = self.tokenizer.encode(' ; '.join(strings), return_tensors='pt')
-
-        # Generate the concatenated string
-        output = self.t5.generate(inputs, max_length=512)
-
-        # Decode the generated output
-        decoded_output = self.tokenizer.decode(output[0], skip_special_tokens=True)
-
-        return decoded_output
+        return ' '.join(strings)
 
     def run(self, action_obj):
         service = action_obj["service"]

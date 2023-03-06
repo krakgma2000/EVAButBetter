@@ -8,6 +8,9 @@ class Definition(Action):
 
     def run(self, action_obj):
         word = action_obj["word"]
-        mn = self.dc.meaning(word)
-        mn = list(mn.values())[0][0]
-        return "This is what I found about the word \"" + word + "\": " + mn
+        if word is None:
+            return "Which word do you want to know the meaning for?"
+        else:
+            mn = self.dc.meaning(word)
+            mn = list(mn.values())[0][0]
+            return "This is what I found about the word \"" + word + "\": " + mn
