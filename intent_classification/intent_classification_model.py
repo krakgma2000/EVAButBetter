@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 from tensorflow import keras
 import pickle
 import pandas as pd
+from lib.file_adapter.adapter_nlu import AdapterIntentNLU
 
 '''
 - 107s 312ms/step - loss: 0.1703 - acc: 0.9529 - val_loss: 0.4475 - val_acc: 0.9085
@@ -32,32 +33,12 @@ class IntentClassificationModel:
         self.tokenizer = keras.preprocessing.text.Tokenizer()
         self.intents = None
         self.embedding_matrix = None
+        self.adapter = AdapterIntentNLU()
 
     # **** TRAIN ****#S
     def load_data_generic(self, generic_dataset_path):
-        # Loading json data
-        with open(generic_dataset_path) as file:
-            data = json.loads(file.read())
 
-        # out-of-scope intent data
-        val_oos = np.array(data['oos_val'])
-        train_oos = np.array(data['oos_train'])
-        test_oos = np.array(data['oos_test'])
-
-        # other intents data
-        val_others = np.array(data['val'])
-        train_others = np.array(data['train'])
-        test_others = np.array(data['test'])
-
-        # Joining
-        val = np.concatenate([val_oos, val_others])
-        train = np.concatenate([train_oos, train_others])
-        test = np.concatenate([test_oos, test_others])
-        data = np.concatenate([train, test, val])
-        data = data.T
-
-        text = data[0]
-        labels = data[1]
+        text,labels = self.adapter.convert(generic_dataset_path)
 
         domain_texts, domain_labels = self.load_data_domain(replace_original_labels=True)
 
@@ -69,14 +50,10 @@ class IntentClassificationModel:
         return text, labels
 
     def load_data_domain(self, replace_original_labels=False):
-        df = pd.read_csv(self.domain_dataset_path)
+
+        texts, labels = self.adapter.convert(self.domain_dataset_path)
         if replace_original_labels:
-            df["label"] = "upf"
-        texts = df["sentence"].to_numpy()
-        labels = df["label"].to_numpy()
-
-        self.intents = np.unique(labels)
-
+            labels = np.full(len(labels),"upf")
         return texts, labels
 
     def one_hot_encoder(self, labels, output_file):

@@ -7,7 +7,7 @@ if len(argv) >= 2:
     domain_dataset_path = argv[1]
 
 # **** BUILD GENERIC INTENT CLASSIFIER****#
-generic_dataset_path = "./intent_classification/datasets/data_full.json"
+generic_dataset_path = "./intent_classification/datasets/generic.yml"
 embedder_train_dataset_path = "./intent_classification/datasets/glove.6B.100d.txt"
 
 print("#### TRAINING GENERIC INTENT CLASSIFIER ####\n")
