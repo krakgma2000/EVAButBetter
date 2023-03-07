@@ -40,4 +40,6 @@ loss_output = "./intent_classification/plots/domain_loss.png"
 intentClassModel.execute_train_pipeline(text, labels, label_encoder_output, tokenizer_output, accuracy_output,
                                         loss_output, model_output)
 
-print("#### FINISHED BUILDING CLASSIFIERS ####")
+print("#### FINISHED BUILDING INTENT CLASSIFIERS ####")
+
+#TODO: OTHER CLASSIFIERS
